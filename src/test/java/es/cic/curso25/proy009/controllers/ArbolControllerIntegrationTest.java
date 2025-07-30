@@ -1,6 +1,5 @@
 package es.cic.curso25.proy009.controllers;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +28,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import es.cic.curso25.proy009.models.Arbol;
 import es.cic.curso25.proy009.models.Rama;
 import es.cic.curso25.proy009.repositories.ArbolRepository;
-import es.cic.curso25.proy009.repositories.RamaRepository;
 import jakarta.transaction.Transactional;
 
 @SpringBootTest
@@ -45,9 +43,6 @@ public class ArbolControllerIntegrationTest {
 
         @Autowired
         private ArbolRepository arbolRepository;
-
-        @Autowired
-        private RamaRepository ramaRepository;
 
         Rama rama1;
         Rama rama2;
