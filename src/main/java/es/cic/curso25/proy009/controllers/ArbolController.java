@@ -2,7 +2,6 @@ package es.cic.curso25.proy009.controllers;
 
 import java.util.List;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,35 +26,28 @@ public class ArbolController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ArbolController.class);
 
-    @GetMapping("/{id}")
-    public Arbol getArbol(@PathVariable Long id) {
-        LOGGER.info(String.format("Obteniendo el arbol con id %d desde la ruta /arbol/%d", id, id));
-        return arbolService.getArbol(id);
-    }
-
-    @GetMapping("/rama/{id}")
-    public Rama getRama(@PathVariable Long id) {
-        LOGGER.info(String.format("Obteniendo la rama con id %d desde la ruta /arbol/rama/%d", id, id));
-        return arbolService.getRama(id);
-    }
-
     @GetMapping()
     public List<Arbol> getAllArboles() {
         LOGGER.info("Obteniendo todos los arboles mediante la ruta /arbol");
         return arbolService.getAllArboles();
     }
 
-    @GetMapping("/ramas")
-    public List<Rama> getAllRamas() {
-        LOGGER.info("Obteniendo todas las ramas mediante la ruta /arbol/ramas");
-        return arbolService.getAllRamas();
+    @GetMapping("/{id}")
+    public Arbol getArbol(@PathVariable Long id) {
+        LOGGER.info(String.format("Obteniendo el arbol con id %d desde la ruta /arbol/%d", id, id));
+        return arbolService.getArbol(id);
     }
 
     @GetMapping("/{id}/ramas")
-    public List<Rama> gettAllRamasPorIdArbol(@PathVariable Long id) {
-        LOGGER.info(String.format("Obteniendo todas las ramas mediante la ruta /arbol/%d/ramas", id));
-        Arbol arbol = arbolService.getArbol(id);
-        return arbol.getRamas();
+    public List<Rama> getRamasDeArbol(@PathVariable Long id) {
+        LOGGER.info(String.format("Obteniendo las ramas del arbol con id %d desde la ruta /arbol/%d/ramas", id, id));
+        return arbolService.getRamasDeArbol(id);
+    }
+
+    @GetMapping("/{idArbol}/{idRama}")
+    public Rama getRamaDeArbol(@PathVariable Long idArbol, @PathVariable Long idRama) {
+        LOGGER.info(String.format("Obteniendo una rama por iddesde la ruta /arbol/%d/%d", idArbol, idRama));
+        return arbolService.getRamaDeArbol(idArbol, idRama);
     }
 
     @PostMapping
@@ -64,10 +56,11 @@ public class ArbolController {
         return arbolService.createArbol(nuevoArbol);
     }
 
-    @PostMapping("/rama")
-    public Rama createRama(@RequestBody Rama nuevaRama) {
-        LOGGER.info("Creando una nueva rama mediante la ruta /arbol/rama");
-        return arbolService.createRama(nuevaRama);
+    @PostMapping("/{idArbol}/nuevaRama")
+    public Arbol createRamaEnArbol(@PathVariable Long idArbol, @RequestBody Rama nuevaRama) {
+        LOGGER.info(String.format("Creando una nueva rama en el arbol con id %d mediante la ruta /arbol/%d/nuevaRama",
+                idArbol, idArbol));
+        return arbolService.createRamaEnArbol(idArbol, nuevaRama);
     }
 
     @PutMapping("/{id}")
@@ -76,32 +69,13 @@ public class ArbolController {
         return arbolService.updateArbol(id, arbolActualizado);
     }
 
-    @PutMapping("/rama/{id}")
-    public Rama updateRama(@PathVariable Long id, @RequestBody Rama ramaActualizada) {
-        LOGGER.info(String.format("Actualizando la rama con id %d mediante la ruta /arbol/rama/%d", id, id));
-        return arbolService.updateRama(id, ramaActualizada);
+    @PutMapping("/{idArbol}/{idRama}")
+    public Arbol updateRamaEnArbol(@PathVariable Long idArbol, @PathVariable Long idRama,
+            @RequestBody Rama ramaActualizada) {
+        LOGGER.info(String.format("Actualizando rama del arbol con id %d mediante la ruta /arbol/%d/%d", idArbol,
+                idArbol, idRama));
+        return arbolService.updateRamaEnArbol(idArbol, idRama, ramaActualizada);
     }
-
-    // @PutMapping("/{id}/ramas")
-    // public Arbol actualizarRamasDelArbol(@PathVariable Long id, List<Rama> ramasActualizadas) {
-    //     Arbol arbolAActualizar = arbolService.getArbol(id);
-    //     List<Rama> ramasActuales = arbolAActualizar.getRamas();
-
-    //     for (int i = 0; i < ramasActuales.size(); i++) {
-    //         Long idAActualizar = ramasActuales.get(i).getId();
-    //         for (int j = 0; j < ramasActualizadas.size(); j++) {
-    //             Long idRamaActualizada = ramasActualizadas.get(j).getId();
-    //             if (idAActualizar == idRamaActualizada) {
-    //                 Rama ramaActualizada = ramasActualizadas.get(j);
-    //                 arbolService.updateRama(idAActualizar, ramaActualizada);
-    //             }
-    //         }
-    //     }
-
-
-    // }
-
-    
 
     @DeleteMapping("/{id}")
     public void deleteArbol(@PathVariable Long id) {
@@ -109,10 +83,11 @@ public class ArbolController {
         arbolService.deleteArbol(id);
     }
 
-    @DeleteMapping("/rama/{id}")
-    public void deleteRama(@PathVariable Long id) {
-        LOGGER.info(String.format("Eliminando la rama con id %d mediante la ruta /arbol/rama/%d", id, id));
-        arbolService.deleteRama(id);
-    }
+    @DeleteMapping("/{idArbol}/{idRama}")
+    public Arbol deleteRamaDeArbol(@PathVariable Long idArbol, @PathVariable Long idRama) {
+        LOGGER.info(String.format("Eliminando una rama del arbol con id %d mediante la ruta /arbol/%d/%d", idArbol,
+                idArbol, idRama));
 
+        return arbolService.deleteRamaDeArbol(idArbol, idRama);
+    }
 }

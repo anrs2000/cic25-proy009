@@ -9,8 +9,8 @@ public class RamaNotFound extends RuntimeException {
         super(mensaje, causa);
     }
 
-    public RamaNotFound(String causa) {
-        super(causa);
+    public RamaNotFound(String mensaje) {
+        super(mensaje);
     }
 
     public RamaNotFound(Throwable causa) {

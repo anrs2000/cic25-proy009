@@ -1,8 +1,8 @@
-# 🌳 Proyecto Arbol-Rama
+# Proyecto Arbol-Rama
 
 Este proyecto es una API REST desarrollada en Java con Spring Boot que gestiona entidades `Arbol` y `Rama`. Un `Arbol` puede tener múltiples `Rama`s asociadas, representando una estructura jerárquica básica.
 
-## 📦 Tecnologías
+## Tecnologías
 
 - Java 17+
 - Spring Boot
@@ -11,9 +11,9 @@ Este proyecto es una API REST desarrollada en Java con Spring Boot que gestiona 
 - Jackson (serialización JSON)
 - JUnit + MockMvc (pruebas)
 
-## 🧩 Entidades
+## Entidades
 
-### 🌲 Arbol
+### Arbol
 
 ```java
 class Arbol {
@@ -21,6 +21,8 @@ class Arbol {
     Long version;
     List<Rama> ramas;
 }
+
+### Rama
 
 class Rama {
     Long id;
