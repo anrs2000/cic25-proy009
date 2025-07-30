@@ -21,11 +21,18 @@ class Arbol {
     Long version;
     List<Rama> ramas;
 }
+```
 
 ### Rama
 
+```java
 class Rama {
     Long id;
     double longitud;
     int numHojas;
 }
+```
+
+
+## Autores
+- **Ángela** — *Desarrollador inicial* [arsoto@formacion.cic.es](mailto:arsoto@formacion.cic.es)
