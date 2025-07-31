@@ -113,7 +113,6 @@ public class ArbolControllerIntegrationTest {
 
                                         assertTrue(arbolesObtenidos.size() >= 2);
                                 });
-
         }
 
         @Test
@@ -128,6 +127,13 @@ public class ArbolControllerIntegrationTest {
                                         // assertEquals(ramas, arbolObtenido.getRamas());
                                         assertEquals(1L, arbolObtenido.getVersion());
                                 });
+        }
+
+        @Test
+        void testGetArbolNoExistente() throws Exception {
+                mockMvc.perform(get("/arbol/723664373")
+                                .contentType("application/json"))
+                                .andExpect(status().isNotFound());
         }
 
         @Test
@@ -167,6 +173,13 @@ public class ArbolControllerIntegrationTest {
                                         assertEquals(rama1.getNumHojas(), ramaResultado.getNumHojas());
                                 });
 
+        }
+
+        @Test
+        void testGetRamaNoExistenteDeArbol() throws Exception{
+                 mockMvc.perform(get(String.format("/arbol/%d/%d", idArbolGuardado, 12143254L))
+                                .contentType("application/json"))
+                                .andExpect(status().isNotFound());
         }
 
         @Test

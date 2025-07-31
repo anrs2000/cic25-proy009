@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import es.cic.curso25.proy009.exceptions.ArbolNotFound;
+import es.cic.curso25.proy009.exceptions.RamaNotFound;
 import es.cic.curso25.proy009.models.Arbol;
 import es.cic.curso25.proy009.models.Rama;
 import jakarta.transaction.Transactional;
@@ -126,6 +127,11 @@ public class ArbolServiceIntegrationTest {
     }
 
     @Test
+    void testGetRamaDeArbolNoExistente(){
+        assertThrows(RamaNotFound.class, () -> {arbolService.getRamaDeArbol(arbolCreado.getId(), 12132L);});
+    }
+
+    @Test
     void testGetRamasDeArbol() {
         int existentes = arbolService.getRamasDeArbol(arbolCreado.getId()).size();
 
@@ -148,6 +154,15 @@ public class ArbolServiceIntegrationTest {
 
         assertEquals(id, arbolActualizado.getId());
         assertNotNull(arbolActualizado.getRamas());
+    }
+
+    @Test
+    void testUpdateArbolNoExistente(){
+        Arbol nuevo = new Arbol();
+        nuevo.setRamas(new ArrayList<>());
+        nuevo.setVersion(1L);
+
+        assertThrows(ArbolNotFound.class, ()->{arbolService.updateArbol(102L, nuevo);});
     }
 
     @Test

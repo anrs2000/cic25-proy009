@@ -52,7 +52,7 @@ public class ArbolService {
 
         List<Rama> todasLasRamas = this.getRamasDeArbol(idArbol);
 
-        Optional<Rama> ramaEncontrada = null;
+        Optional<Rama> ramaEncontrada = Optional.empty();
 
         for (Rama rama : todasLasRamas) {
             if (rama.getId().equals(idRama)) {
